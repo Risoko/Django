@@ -26,7 +26,7 @@ class SignUpForm(UserCreationForm):
         Returns the first letter in uppercase from the lower case.
         """
         first_name = self.cleaned_data['first_name']
-        return first_name[0].upper() + first_name[1:].lower()
+        return first_name.capitalize()
 
     def clean_last_name(self):
         """
@@ -34,7 +34,7 @@ class SignUpForm(UserCreationForm):
         Returns the first letter in uppercase from the lower case.
         """
         last_name = self.cleaned_data['last_name']
-        return last_name[0].upper() + last_name[1:].lower()
+        return last_name.capitalize()
 
 class PasswordResetForm(forms.Form):
     username = forms.CharField(
@@ -84,9 +84,9 @@ class PasswordResetForm(forms.Form):
         user.set_password(new_password)
         user.save()
         send_email(
-            mailFrom='Blog Administration',
-            mailTo=[email],
-            mailSubject='Reset Password',
+            mail_from='Blog Administration',
+            mail_to=[email],
+            mail_subject='Reset Password',
             message=message
         )
         return new_password
