@@ -8,13 +8,13 @@ class Question(models.Model):
 
     question_text = models.CharField(max_length=300)
     pub_date = models.DateTimeField('Date Published')
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently?'
 
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
-    was_published_recently.admin_order_field = 'pub_date'
-    was_published_recently.boolean = True
-    was_published_recently.short_description = 'Published recently?'
     
     def __str__(self):
         return f'{self.question_text}'
